@@ -92,15 +92,7 @@ export interface IClientOptions extends ISecureClientOptions {
     /*
     *  properies object of will
     * */
-    properties?: {
-      willDelayInterval?: number,
-      payloadFormatIndicator?: number,
-      messageExpiryInterval?: number,
-      contentType?: string,
-      responseTopic?: string,
-      correlationData?: Buffer,
-      userProperties?: Object
-    }
+    properties?: MQTT5Properties
   }
   transformWsUrl?: (url: string, options: IClientOptions, client: MqttClient) => string,
   properties?: {
@@ -147,6 +139,10 @@ export interface IClientPublishOptions {
    * callback called when message is put into `outgoingStore`
    */
   cbStorePut?: StorePutCallback
+  /**
+   * MQTT 5.0 properties object
+   */
+  properties?: MQTT5Properties
 }
 export interface IClientSubscribeOptions {
   /**
@@ -175,4 +171,35 @@ export interface IClientReconnectOptions {
    * a Store for the outgoing packets
    */
   outgoingStore?: Store
+}
+
+export interface MQTT5Properties {
+  /**
+   * representing the Will Delay Interval in seconds
+   */
+  willDelayInterval?: number
+  /**
+   * will Message is UTF-8 Encoded Character Data or not
+   */
+  payloadFormatIndicator?: number
+  /**
+   * lifetime of the message in seconds
+   */
+  messageExpiryInterval?: number
+  /**
+   * describing the content of the Will Message
+   */
+  contentType?: string
+  /**
+   * used as the Topic Name for a response message
+   */
+  responseTopic?: string
+  /**
+   * correlation data
+   */
+  correlationData?: Buffer
+  /**
+   * user properties
+   */
+  userProperties?: Object
 }
